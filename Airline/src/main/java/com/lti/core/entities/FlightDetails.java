@@ -21,14 +21,13 @@ public class FlightDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-	@Column(name="flight_identity")
 	private int flightId;
 	private String source;
 	private String destination;
 	private String carrier;
 	private int duration;
 	
-	@OneToMany(mappedBy = "album",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "flightDetails",cascade=CascadeType.ALL)
 	private List<FlightScheduleDetails> flightScheduleDetails;
 	
 	

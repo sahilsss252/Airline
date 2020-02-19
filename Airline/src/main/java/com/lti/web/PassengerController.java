@@ -1,12 +1,17 @@
 package com.lti.web;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lti.core.entities.FlightDetails;
 import com.lti.core.entities.UserDetails;
 import com.lti.core.exceptions.HrExceptions;
 import com.lti.core.services.PassengerService;
@@ -45,4 +50,14 @@ public class PassengerController {
 //		
 //	}
 
+	
+	@GetMapping(value="/viewFlight",produces = "APPLICATION/JSON")
+	public @ResponseBody List<FlightDetails> ViewFlights() throws HrExceptions{
+		//System.out.println(userDetails);
+		
+			System.out.println(passengerService.getFlights());
+			return passengerService.getFlights();
+	}
+	
+	
 }

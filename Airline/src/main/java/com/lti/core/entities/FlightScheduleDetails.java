@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="FLIGHT_SCHDULE_DETAILS")
+@Table(name="FLIGHT_SCHEDULE_DETAILS")
 @SequenceGenerator(name = "seq", sequenceName = "FLIGHT_SCHEDULE_SEQUENCE", allocationSize = 1, initialValue = 100)
 public class FlightScheduleDetails {
 
@@ -22,14 +22,15 @@ public class FlightScheduleDetails {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
 	private int scheduleId;
 	private LocalDate departureDate;
-	private String arrivalTime;
-	private String departureTime;
-	private int ecomonySeats;
+	private String arrival;
+	private String departure;
+	private int economySeats;
 	private int economyPrice;
 	private int businessSeats;
 	private int businessPrice;
+	
 	@ManyToOne
-	@JoinColumn(name = "flight_identity")//fk
+	@JoinColumn(name = "flightId")//fk
 	private FlightDetails flightDetails;
 	public int getScheduleId() {
 		return scheduleId;
@@ -44,22 +45,22 @@ public class FlightScheduleDetails {
 		this.departureDate = departureDate;
 	}
 	public String getArrivalTime() {
-		return arrivalTime;
+		return arrival;
 	}
 	public void setArrivalTime(String arrivalTime) {
-		this.arrivalTime = arrivalTime;
+		this.arrival = arrivalTime;
 	}
 	public String getDepartureTime() {
-		return departureTime;
+		return departure;
 	}
 	public void setDepartureTime(String departureTime) {
-		this.departureTime = departureTime;
+		this.departure = departureTime;
 	}
 	public int getEcomonySeats() {
-		return ecomonySeats;
+		return economySeats;
 	}
 	public void setEcomonySeats(int ecomonySeats) {
-		this.ecomonySeats = ecomonySeats;
+		this.economySeats = ecomonySeats;
 	}
 	public int getEconomyPrice() {
 		return economyPrice;
@@ -93,9 +94,9 @@ public class FlightScheduleDetails {
 		super();
 		this.scheduleId = scheduleId;
 		this.departureDate = departureDate;
-		this.arrivalTime = arrivalTime;
-		this.departureTime = departureTime;
-		this.ecomonySeats = ecomonySeats;
+		this.arrival = arrivalTime;
+		this.departure = departureTime;
+		this.economySeats = ecomonySeats;
 		this.economyPrice = economyPrice;
 		this.businessSeats = businessSeats;
 		this.businessPrice = businessPrice;
@@ -104,7 +105,7 @@ public class FlightScheduleDetails {
 	@Override
 	public String toString() {
 		return "FlightScheduleDetails [scheduleId=" + scheduleId + ", departureDate=" + departureDate + ", arrivalTime="
-				+ arrivalTime + ", departureTime=" + departureTime + ", ecomonySeats=" + ecomonySeats
+				+ arrival + ", departureTime=" + departure+ ", ecomonySeats=" + economySeats
 				+ ", economyPrice=" + economyPrice + ", businessSeats=" + businessSeats + ", businessPrice="
 				+ businessPrice + ", flightDetails=" + flightDetails + "]";
 	}
