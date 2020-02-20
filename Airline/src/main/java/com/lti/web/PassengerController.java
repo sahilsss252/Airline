@@ -55,7 +55,7 @@ public class PassengerController {
 	public @ResponseBody List<FlightDetails> ViewFlights() throws HrExceptions{
 		//System.out.println(userDetails);
 		
-			System.out.println(passengerService.getFlights());
+			//System.out.println(passengerService.getFlights());
 			return passengerService.getFlights();
 	}
 	

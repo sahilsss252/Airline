@@ -22,7 +22,7 @@ public class AdminController {
 		
 			adminService.addFlight(flightDetails);
 			
-		
+	
 		//return true;
 	}
 	

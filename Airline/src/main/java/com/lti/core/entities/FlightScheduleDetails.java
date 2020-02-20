@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 
 @Entity
@@ -29,9 +31,11 @@ public class FlightScheduleDetails {
 	private int businessSeats;
 	private int businessPrice;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "flightId")//fk
 	private FlightDetails flightDetails;
+	
 	public int getScheduleId() {
 		return scheduleId;
 	}

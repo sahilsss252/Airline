@@ -1,3 +1,5 @@
+
+
 package com.lti.core.daos;
 
 import java.util.ArrayList;
@@ -37,7 +39,7 @@ public class UserDetailsImpl implements UserDetailsDao {
 
 	@Override
 	public List<FlightDetails> getFlights() throws HrExceptions {
-		String query="select e from FlightDetails e join fetch e.flightScheduleDetails b where e.flightId=501";
+		String query="select e from FlightDetails e join fetch e.flightScheduleDetails b where e.flightId=502";
 		Query q=manager.createQuery(query);
 		//System.out.println(q.getSingleResult());
 		List<FlightDetails> lst=q.getResultList();
