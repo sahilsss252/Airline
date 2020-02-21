@@ -1,5 +1,6 @@
 package com.lti.core.entities;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
@@ -11,19 +12,23 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 
 @Entity
 @Table(name="FLIGHT_SCHEDULE_DETAILS")
-@SequenceGenerator(name = "seq", sequenceName = "FLIGHT_SCHEDULE_SEQUENCE", allocationSize = 1, initialValue = 100)
+@SequenceGenerator(name = "seqSchedule", sequenceName = "FLIGHT_SCHEDULE_SEQUENCE", allocationSize = 1, initialValue = 100)
 public class FlightScheduleDetails {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqSchedule")
 	private int scheduleId;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private LocalDate departureDate;
+	
 	private String arrival;
 	private String departure;
 	private int economySeats;
@@ -31,10 +36,19 @@ public class FlightScheduleDetails {
 	private int businessSeats;
 	private int businessPrice;
 	
+	
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name = "flightId")//fk
+	@JoinColumn(name="flightId")//fk
 	private FlightDetails flightDetails;
+	/*private int flightId;
+	
+	public int getFlightId() {
+		return flightId;
+	}
+	public void setFlightId(int flightId) {
+		this.flightId = flightId;
+	}*/
 	
 	public int getScheduleId() {
 		return scheduleId;
@@ -48,16 +62,16 @@ public class FlightScheduleDetails {
 	public void setDepartureDate(LocalDate departureDate) {
 		this.departureDate = departureDate;
 	}
-	public String getArrivalTime() {
+	public String getArrival() {
 		return arrival;
 	}
-	public void setArrivalTime(String arrivalTime) {
+	public void setArrival(String arrivalTime) {
 		this.arrival = arrivalTime;
 	}
-	public String getDepartureTime() {
+	public String getDeparture() {
 		return departure;
 	}
-	public void setDepartureTime(String departureTime) {
+	public void setDeparture(String departureTime) {
 		this.departure = departureTime;
 	}
 	public int getEcomonySeats() {
@@ -111,12 +125,13 @@ public class FlightScheduleDetails {
 		return "FlightScheduleDetails [scheduleId=" + scheduleId + ", departureDate=" + departureDate + ", arrivalTime="
 				+ arrival + ", departureTime=" + departure+ ", ecomonySeats=" + economySeats
 				+ ", economyPrice=" + economyPrice + ", businessSeats=" + businessSeats + ", businessPrice="
-				+ businessPrice + ", flightDetails=" + flightDetails + "]";
+				+ businessPrice + "]";
 	}
-	
-	
-	
-	
-	
-	
+	/*@Override
+	public String toString() {
+		return "FlightScheduleDetails [scheduleId=" + scheduleId + ", departureDate=" + departureDate + ", arrival="
+				+ arrival + ", departure=" + departure + ", economySeats=" + economySeats + ", economyPrice="
+				+ economyPrice + ", businessSeats=" + businessSeats + ", businessPrice=" + businessPrice + ", flightId="
+				+ flightId + "]";
+	}*/
 }

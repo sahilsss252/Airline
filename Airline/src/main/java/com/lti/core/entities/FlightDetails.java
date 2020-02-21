@@ -5,31 +5,48 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 
 @Entity
 @Table(name="FLIGHT_DETAILS")
-@SequenceGenerator(name = "seq", sequenceName = "FLIGHT_DETAILS_SEQUENCE", allocationSize = 1, initialValue = 100)
+@SequenceGenerator(name = "seqDetails", sequenceName = "FLIGHT_DETAILS_SEQUENCE", allocationSize = 1, initialValue = 100)
 public class FlightDetails {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqDetails")
 	private int flightId;
+	
 	private String source;
 	private String destination;
 	private String carrier;
 	private int duration;
 	
-	@OneToMany(mappedBy = "flightDetails",cascade=CascadeType.ALL)
+	@Transient
+	private FlightSchedule flightSchedule;
+	
+	@OneToMany(mappedBy = "flightDetails", cascade = CascadeType.ALL)
 	private List<FlightScheduleDetails> flightScheduleDetails;
 	
+	
+	public FlightSchedule getFlightSchedule() {
+		return flightSchedule;
+	}
+	public void setFlightSchedule(FlightSchedule flightSchedule) {
+		this.flightSchedule = flightSchedule;
+	}
 	
 	public List<FlightScheduleDetails> getFlightScheduleDetails() {
 		return flightScheduleDetails;
@@ -37,6 +54,7 @@ public class FlightDetails {
 	public void setFlightScheduleDetails(List<FlightScheduleDetails> flightScheduleDetails) {
 		this.flightScheduleDetails = flightScheduleDetails;
 	}
+	
 	public int getFlightId() {
 		return flightId;
 	}
@@ -83,9 +101,11 @@ public class FlightDetails {
 	@Override
 	public String toString() {
 		return "FlightDetails [flightId=" + flightId + ", source=" + source + ", destination=" + destination
-				+ ", carrier=" + carrier + ", duration=" + duration + ", flightScheduleDetails=" + flightScheduleDetails
-				+ "]";
+				+ ", carrier=" + carrier + ", duration=" + duration + "]";
 	}
-	
-	
+	/*@Override
+	public String toString() {
+		return "FlightDetails [flightId=" + flightId + ", source=" + source + ", destination=" + destination
+				+ ", carrier=" + carrier + ", duration=" + duration + "]";
+	}*/
 }

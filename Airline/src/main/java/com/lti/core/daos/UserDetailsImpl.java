@@ -39,7 +39,7 @@ public class UserDetailsImpl implements UserDetailsDao {
 
 	@Override
 	public List<FlightDetails> getFlights() throws HrExceptions {
-		String query="select e from FlightDetails e join fetch e.flightScheduleDetails b where e.flightId=502";
+		String query="select e from FlightDetails e join fetch e.flightScheduleDetails b where e.source='delhi' and e.destination='pune'";
 		Query q=manager.createQuery(query);
 		//System.out.println(q.getSingleResult());
 		List<FlightDetails> lst=q.getResultList();
