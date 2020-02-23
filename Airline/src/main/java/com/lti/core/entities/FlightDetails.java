@@ -1,5 +1,6 @@
 package com.lti.core.entities;
 
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -22,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="FLIGHT_DETAILS")
-@SequenceGenerator(name = "seqDetails", sequenceName = "FLIGHT_DETAILS_SEQUENCE", allocationSize = 1, initialValue = 100)
+@SequenceGenerator(name = "seqDetails", sequenceName = "FLIGHT_DETAILS_SEQUENCE", allocationSize = 1, initialValue = 500)
 public class FlightDetails {
 
 	@Id
@@ -32,12 +33,12 @@ public class FlightDetails {
 	private String source;
 	private String destination;
 	private String carrier;
-	private int duration;
+	
 	
 	@Transient
 	private FlightSchedule flightSchedule;
 	
-	@OneToMany(mappedBy = "flightDetails", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "flightDetails", cascade = CascadeType.REMOVE)
 	private List<FlightScheduleDetails> flightScheduleDetails;
 	
 	
@@ -79,30 +80,25 @@ public class FlightDetails {
 	public void setCarrier(String carrier) {
 		this.carrier = carrier;
 	}
-	public int getDuration() {
-		return duration;
-	}
-	public void setDuration(int duration) {
-		this.duration = duration;
-	}
+	
 	public FlightDetails() {
 		super();
 	}
-	public FlightDetails(int flightId, String source, String destination, String carrier, int duration,
+	public FlightDetails(int flightId, String source, String destination, String carrier,
 			List<FlightScheduleDetails> flightScheduleDetails) {
 		super();
 		this.flightId = flightId;
 		this.source = source;
 		this.destination = destination;
 		this.carrier = carrier;
-		this.duration = duration;
+	
 		this.flightScheduleDetails = flightScheduleDetails;
 	}
-	@Override
-	public String toString() {
-		return "FlightDetails [flightId=" + flightId + ", source=" + source + ", destination=" + destination
-				+ ", carrier=" + carrier + ", duration=" + duration + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "FlightDetails [flightId=" + flightId + ", source=" + source + ", destination=" + destination
+//				+ ", carrier=" + carrier + ", duration=" + duration + "]";
+//	}
 	/*@Override
 	public String toString() {
 		return "FlightDetails [flightId=" + flightId + ", source=" + source + ", destination=" + destination

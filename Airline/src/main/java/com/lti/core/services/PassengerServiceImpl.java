@@ -1,5 +1,6 @@
 package com.lti.core.services;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +27,17 @@ public class PassengerServiceImpl implements PassengerService {
 
 
 	@Override
-	public List<FlightDetails> getFlights() throws HrExceptions {
+	public List<FlightDetails> getFlights(String source, String destination, LocalDate departureDate) throws HrExceptions {
 		// TODO Auto-generated method stub
-		return userDetailsDao.getFlights();
+		return userDetailsDao.getFlights(source,destination,departureDate);
+	}
+
+
+	@Override
+	public List<UserDetails> isValid(UserDetails userDetails) {
+		// TODO Auto-generated method stub
+		List<UserDetails> user=userDetailsDao.isValid(userDetails);
+		return user;
 	}
 
 	

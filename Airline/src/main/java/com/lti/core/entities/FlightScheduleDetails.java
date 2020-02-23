@@ -2,6 +2,7 @@ package com.lti.core.entities;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="FLIGHT_SCHEDULE_DETAILS")
-@SequenceGenerator(name = "seqSchedule", sequenceName = "FLIGHT_SCHEDULE_SEQUENCE", allocationSize = 1, initialValue = 100)
+@SequenceGenerator(name = "seqSchedule", sequenceName = "FLIGHT_SCHEDULE_SEQUENCE", allocationSize = 1, initialValue = 5000)
 public class FlightScheduleDetails {
 
 	@Id
@@ -29,8 +30,8 @@ public class FlightScheduleDetails {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private LocalDate departureDate;
 	
-	private String arrival;
-	private String departure;
+	private LocalTime arrival;
+	private LocalTime departure;
 	private int economySeats;
 	private int economyPrice;
 	private int businessSeats;
@@ -41,6 +42,7 @@ public class FlightScheduleDetails {
 	@ManyToOne
 	@JoinColumn(name="flightId")//fk
 	private FlightDetails flightDetails;
+	private int duration;
 	/*private int flightId;
 	
 	public int getFlightId() {
@@ -50,6 +52,13 @@ public class FlightScheduleDetails {
 		this.flightId = flightId;
 	}*/
 	
+	
+	public int getDuration() {
+		return duration;
+	}
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
 	public int getScheduleId() {
 		return scheduleId;
 	}
@@ -62,23 +71,23 @@ public class FlightScheduleDetails {
 	public void setDepartureDate(LocalDate departureDate) {
 		this.departureDate = departureDate;
 	}
-	public String getArrival() {
+	public LocalTime getArrival() {
 		return arrival;
 	}
-	public void setArrival(String arrivalTime) {
+	public void setArrival(LocalTime arrivalTime) {
 		this.arrival = arrivalTime;
 	}
-	public String getDeparture() {
+	public LocalTime getDeparture() {
 		return departure;
 	}
-	public void setDeparture(String departureTime) {
+	public void setDeparture(LocalTime departureTime) {
 		this.departure = departureTime;
 	}
-	public int getEcomonySeats() {
+	public int getEconomySeats() {
 		return economySeats;
 	}
-	public void setEcomonySeats(int ecomonySeats) {
-		this.economySeats = ecomonySeats;
+	public void setEconomySeats(int economySeats) {
+		this.economySeats = economySeats;
 	}
 	public int getEconomyPrice() {
 		return economyPrice;
@@ -107,7 +116,7 @@ public class FlightScheduleDetails {
 	public FlightScheduleDetails() {
 		super();
 	}
-	public FlightScheduleDetails(int scheduleId, LocalDate departureDate, String arrivalTime, String departureTime,
+	public FlightScheduleDetails(int scheduleId, LocalDate departureDate, LocalTime arrivalTime, LocalTime departureTime,
 			int ecomonySeats, int economyPrice, int businessSeats, int businessPrice, FlightDetails flightDetails) {
 		super();
 		this.scheduleId = scheduleId;

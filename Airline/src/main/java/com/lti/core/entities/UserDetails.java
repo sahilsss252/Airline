@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="USER_DETAILS")
 @SequenceGenerator(name = "seq", sequenceName = "USER_DETAILS_SEQUENCE", allocationSize = 1, initialValue = 100)
@@ -22,6 +24,9 @@ public class UserDetails {
 	private String password;
 	
 	private long mobileNo;
+	
+	
+	
 	public UserDetails() {
 		super();
 	}
