@@ -13,4 +13,5 @@ public interface UserDetailsDao {
 	public boolean userRegistration(UserDetails userDetails) throws HrExceptions;
 	public List<FlightDetails> getFlights(String source,String destination,LocalDate departureDate) throws HrExceptions;
 	public List<UserDetails> isValid(UserDetails userDetails);
+	public List<FlightDetails> getFlightsafterLogin(String source,String destination,LocalDate departureDate,String flightClass,int noOfPassengers) throws HrExceptions;
 }

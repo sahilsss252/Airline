@@ -58,7 +58,7 @@ public class UserDetailsImpl implements UserDetailsDao {
 		q.setParameter("departureDate", departureDate);
 		//System.out.println(q.getSingleResult());
 		List<FlightDetails> lst=q.getResultList();
-		//List<FlightDetails> u=q.getResultList();
+		//List<FlightDetails> u=pq.getResultList();
 		
 		return lst;
 	}
@@ -77,6 +77,33 @@ public class UserDetailsImpl implements UserDetailsDao {
 			return u;
 		else
 		return user1;
+	}
+
+	@Override
+	public List<FlightDetails> getFlightsafterLogin(String source, String destination, LocalDate departureDate,
+			String flightClass, int noOfPassengers) throws HrExceptions {
+		if(flightClass.equals("economy"))
+		{
+			String query="select e from FlightDetails e join fetch e.flightScheduleDetails b where e.source=:source and e.destination=:destination and b.departureDate=:departureDate"; 
+			Query q=manager.createQuery(query);
+			q.setParameter("source", source);
+			q.setParameter("destination", destination);
+			q.setParameter("departureDate", departureDate);
+			List<FlightDetails> flightDetails=q.getResultList();
+			return flightDetails;
+		}
+		else
+		{
+			String query="select b.businessSeats as availableSeats,b.businessPrice as price from FlightDetails e join fetch e.flightScheduleDetails b where e.source=:source and e.destination=:destination and b.departureDate=:departureDate"; 
+			Query q=manager.createQuery(query);
+			q.setParameter("source", source);
+			q.setParameter("destination", destination);
+			q.setParameter("departureDate", departureDate);
+			List<FlightDetails> flightDetails=q.getResultList();
+			return flightDetails;
+			
+			
+		}
 	}
 		
 //	@Override

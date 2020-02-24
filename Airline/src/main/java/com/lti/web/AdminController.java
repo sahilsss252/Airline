@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lti.core.entities.AdminDetails;
 import com.lti.core.entities.FlightDetails;
-
+import com.lti.core.entities.FlightSchedule;
+import com.lti.core.entities.UserDetails;
 import com.lti.core.exceptions.HrExceptions;
 import com.lti.core.services.AdminService;
 
@@ -23,10 +25,11 @@ public class AdminController {
 	private AdminService adminService;
 	
 	@PostMapping(value="/addFlight",consumes = "APPLICATION/JSON")
-	public void addFlight(@RequestBody FlightDetails flightDetails) throws HrExceptions{
+	public void addFlight(@RequestBody FlightSchedule flightSchedule) throws HrExceptions{
 		//System.out.println(userDetails);
 			//System.out.println(flightDetails.getFlightSchedule());
-			adminService.addFlight(flightDetails);
+		System.out.println(flightSchedule);
+		adminService.addFlight(flightSchedule);
 			
 	
 		//return true;
@@ -47,5 +50,15 @@ public class AdminController {
 			
 	
 		//return true;
+	}
+	
+	@PostMapping(value="/adminlogin",consumes="Application/JSON")
+	public List<AdminDetails> isLogin(@RequestBody AdminDetails adminDetails){
+		
+	//	System.out.println(userDetails);
+		List<AdminDetails> u = adminService.isValid(adminDetails);
+		System.out.println(u);
+		return u;
+		
 	}
 }

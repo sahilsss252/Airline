@@ -40,6 +40,14 @@ public class PassengerServiceImpl implements PassengerService {
 		return user;
 	}
 
+
+	@Override
+	public List<FlightDetails> getFlightsAfterLogin(String source, String destination, LocalDate departureDate,
+			String flightClass, int noOfPassengers) throws HrExceptions {
+		// TODO Auto-generated method stub
+		return userDetailsDao.getFlightsafterLogin(source, destination, departureDate, flightClass, noOfPassengers);
+	}
+
 	
 	
 	

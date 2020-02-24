@@ -58,7 +58,10 @@ public class PassengerController {
 
 	
 	@GetMapping(value="/getFlight/{source}/{destination}/{departureDate}",produces = "APPLICATION/JSON")
-	public @ResponseBody List<FlightDetails> ViewFlights(@PathVariable("source") String source,@PathVariable("destination") String destination,@PathVariable("departureDate") String departureDate) throws HrExceptions{
+	public @ResponseBody List<FlightDetails> ViewFlights(
+			@PathVariable("source") String source,
+			@PathVariable("destination") String destination,
+			@PathVariable("departureDate") String departureDate) throws HrExceptions{
 		//System.out.println(userDetails);
 		System.out.println(source);
 		//System.out.println(departureDate);
@@ -68,15 +71,53 @@ public class PassengerController {
 		return passengerService.getFlights(source, destination, date);
 	}
 	
+	@GetMapping(value="/getFlightAfterLogin/{source}/{destination}/{departureDate}/{flightClass}/{noOfPassengers}",produces = "APPLICATION/JSON")
+	public @ResponseBody List<FlightDetails> ViewFlightsafterLogin(
+			@PathVariable("source") String source,
+			@PathVariable("destination") String destination,
+			@PathVariable("departureDate") String departureDate,
+			@PathVariable("flightClass") String flightClass,
+			@PathVariable("noOfPassengers") int noOfPassengers ) throws HrExceptions{
+		//System.out.println(userDetails);
+		System.out.println(source);
+		//System.out.println(departureDate);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate date = LocalDate.parse(departureDate, formatter);
+		System.out.println(date);
+		List<FlightDetails> flightDetails= passengerService.getFlightsAfterLogin(source, destination, date, flightClass, noOfPassengers);
+		System.out.println(flightDetails);
+		return flightDetails;
+	}
+	
 	@PostMapping(value="/login",consumes="Application/JSON")
-	public List<UserDetails> isLogin(@RequestBody UserDetails userDetails){
+	public @ResponseBody List<UserDetails> isLogin(@RequestBody UserDetails userDetails){
 		
 		System.out.println(userDetails);
 		List<UserDetails>u=passengerService.isValid(userDetails);
+		
 		System.out.println(u);
 		return u;
 		
 	}
 	
+	
+	@PostMapping(value="/payment",consumes="Application/JSON")
+	public @ResponseBody boolean isPaymentDone(@RequestBody UserDetails userDetails){
+		
+		System.out.println(userDetails);
+		List<UserDetails>u=passengerService.isValid(userDetails);
+		System.out.println(u);
+		return (Boolean) null;
+		
+	}
+	/*@PostMapping(value="/payment",consumes="Application/JSON")
+	public @ResponseBody boolean addPassenger(@RequestBody UserDetails userDetails){
+		
+		System.out.println(userDetails);
+		List<UserDetails>u=passengerService.isValid(userDetails);
+		System.out.println(u);
+		return (Boolean) null;
+		
+	}*/
 	
 }

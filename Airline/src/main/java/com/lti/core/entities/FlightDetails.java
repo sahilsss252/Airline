@@ -38,7 +38,7 @@ public class FlightDetails {
 	@Transient
 	private FlightSchedule flightSchedule;
 	
-	@OneToMany(mappedBy = "flightDetails", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "flightDetails", cascade = CascadeType.ALL)
 	private List<FlightScheduleDetails> flightScheduleDetails;
 	
 	

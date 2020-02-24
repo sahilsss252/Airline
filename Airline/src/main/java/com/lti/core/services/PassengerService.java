@@ -12,5 +12,6 @@ public interface PassengerService {
 
 	public boolean addPassenger(UserDetails details)  throws HrExceptions;
 	public List<FlightDetails> getFlights(String source, String destination, LocalDate departureDate) throws HrExceptions;
+	public List<FlightDetails> getFlightsAfterLogin(String source, String destination, LocalDate departureDate,String flightClass,int noOfPassengers) throws HrExceptions;
 	public List<UserDetails> isValid(UserDetails userDetails);
 }

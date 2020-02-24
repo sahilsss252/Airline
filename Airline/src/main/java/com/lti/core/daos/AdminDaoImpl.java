@@ -2,6 +2,7 @@ package com.lti.core.daos;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,8 +13,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.lti.core.entities.AdminDetails;
 import com.lti.core.entities.FlightDetails;
 import com.lti.core.entities.FlightScheduleDetails;
+import com.lti.core.entities.UserDetails;
 import com.lti.core.exceptions.HrExceptions;
 
 @Repository
@@ -63,6 +66,7 @@ public class AdminDaoImpl implements AdminDao {
 //		qq.executeUpdate();
 		
 		
+		
 		manager.remove(flightDetails);
 		System.out.println("done");
 		
@@ -79,6 +83,22 @@ public class AdminDaoImpl implements AdminDao {
 			//List<FlightDetails> u=q.getResultList();
 			
 			return lst;
+		}
+
+		@Override
+		public List<AdminDetails> isValid(AdminDetails adminDetails) {
+			
+			String q="select e from UserDetails e where e.email=:u and e.password=:p";
+			Query qq=manager.createQuery(q);
+			qq.setParameter("u", adminDetails.getUsername());
+			qq.setParameter("p", adminDetails.getPassword());
+			
+			List<AdminDetails> user1=qq.getResultList();
+			List<AdminDetails> u=new ArrayList<>();
+			if(user1.isEmpty())
+				return u;
+			else
+			return user1;
 		}
 	}
 

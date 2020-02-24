@@ -7,6 +7,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class FlightSchedule {
 
+	private String source;
+	private String destination;
+	private String carrier;
+	
 	private LocalDate scheduledStartDate;
 	private int durationInMonths;
 	
@@ -21,6 +25,25 @@ public class FlightSchedule {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private LocalDate departureDateinFlightSchedule;
 	
+	
+	public String getSource() {
+		return source;
+	}
+	public void setSource(String source) {
+		this.source = source;
+	}
+	public String getDestination() {
+		return destination;
+	}
+	public void setDestination(String destination) {
+		this.destination = destination;
+	}
+	public String getCarrier() {
+		return carrier;
+	}
+	public void setCarrier(String carrier) {
+		this.carrier = carrier;
+	}
 	public LocalDate getDepartureDateinFlightSchedule() {
 		return departureDateinFlightSchedule;
 	}

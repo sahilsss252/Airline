@@ -3,13 +3,16 @@ package com.lti.core.entities;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -38,6 +41,12 @@ public class FlightScheduleDetails {
 	private int businessPrice;
 	
 	
+	/*public List<PassengerDetails> getPassengerDetails() {
+		return passengerDetails;
+	}
+	public void setPassengerDetails(List<PassengerDetails> passengerDetails) {
+		this.passengerDetails = passengerDetails;
+	}*/
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="flightId")//fk
@@ -51,7 +60,9 @@ public class FlightScheduleDetails {
 	public void setFlightId(int flightId) {
 		this.flightId = flightId;
 	}*/
-	
+/*	
+	@OneToMany(mappedBy = "flightScheduleDetails", cascade = CascadeType.ALL)
+	private List<PassengerDetails> passengerDetails;*/
 	
 	public int getDuration() {
 		return duration;

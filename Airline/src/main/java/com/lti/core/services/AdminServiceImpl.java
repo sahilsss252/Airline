@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lti.core.daos.AdminDao;
+import com.lti.core.entities.AdminDetails;
 import com.lti.core.entities.FlightDetails;
 import com.lti.core.entities.FlightSchedule;
 import com.lti.core.entities.FlightScheduleDetails;
@@ -22,14 +23,17 @@ public class AdminServiceImpl implements AdminService {
 	private AdminDao admindao;
 
 	@Override
-	public void addFlight(FlightDetails flightDetails) throws HrExceptions {
-		FlightSchedule fs = flightDetails.getFlightSchedule();
-		
+	public void addFlight(FlightSchedule flightSchedule) throws HrExceptions {
+		FlightDetails fd1=new FlightDetails();
+		fd1.setSource(flightSchedule.getSource());
+		fd1.setDestination(flightSchedule.getDestination());
+		fd1.setCarrier(flightSchedule.getCarrier());
 		List<FlightScheduleDetails> fd = new ArrayList<>();
 		
 		//LocalDate start = LocalDate.of(fs.getScheduledStartDate().getYear(),fs.getScheduledStartDate().getMonth(),fs.getScheduledStartDate().getDate());
-		LocalDate start = fs.getScheduledStartDate(); 
-		LocalDate end = start.plusMonths(fs.getDurationInMonths());
+		LocalDate start = flightSchedule.getScheduledStartDate(); 
+		LocalDate end = start.plusMonths(flightSchedule.getDurationInMonths());
+		
 		
 		long daysBetween = ChronoUnit.DAYS.between(start,end);
 		
@@ -37,22 +41,22 @@ public class AdminServiceImpl implements AdminService {
 			FlightScheduleDetails fsd = new FlightScheduleDetails();
 			start = start.plusDays(1);
 			fsd.setDepartureDate(start);
-			fsd.setArrival(fs.getArrival());
-			fsd.setDeparture(fs.getDeparture());
-			fsd.setBusinessSeats(fs.getBusinessSeats());
-			LocalTime at=fs.getArrival();
-			LocalTime dt=fs.getDeparture();
+			fsd.setArrival(flightSchedule.getArrival());
+			fsd.setDeparture(flightSchedule.getDeparture());
+			fsd.setBusinessSeats(flightSchedule.getBusinessSeats());
+			LocalTime at=flightSchedule.getArrival();
+			LocalTime dt=flightSchedule.getDeparture();
 			int timeBetween=at.getHour()-dt.getHour();
 			fsd.setDuration(timeBetween);
-			fsd.setEconomySeats(fs.getEconomySeats());
-			fsd.setBusinessPrice(fs.getBusinessPrice());
-			fsd.setEconomyPrice(fs.getEconomyPrice());
-			fsd.setFlightDetails(flightDetails);
+			fsd.setEconomySeats(flightSchedule.getEconomySeats());
+			fsd.setBusinessPrice(flightSchedule.getBusinessPrice());
+			fsd.setEconomyPrice(flightSchedule.getEconomyPrice());
+			fsd.setFlightDetails(fd1);
 			fd.add(fsd);
 		}
-		flightDetails.setFlightScheduleDetails(fd);
+		fd1.setFlightScheduleDetails(fd);
 		
-		admindao.addFlight(flightDetails);
+		admindao.addFlight(fd1);
 		
 	}
 
@@ -93,6 +97,12 @@ public class AdminServiceImpl implements AdminService {
 	public List<FlightDetails> getFlights() throws HrExceptions {
 		// TODO Auto-generated method stub
 		return admindao.getFlights();
+	}
+
+	@Override
+	public List<AdminDetails> isValid(AdminDetails adminDetails) {
+		// TODO Auto-generated method stub
+		return admindao.isValid(adminDetails);
 	}
 
 }
